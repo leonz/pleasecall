@@ -18,7 +18,7 @@ public class Contact {
 	
 	// Added in by the app
 	private String description;
-	private int daysToCall;
+	private int daysToContact;
 
 
 	
@@ -42,7 +42,7 @@ public class Contact {
         setLastTimeContacted(cr, uri);
  
 		description = desc;
-		setDaysToCall(days);
+		setDaysToContact(days);
 		
 	}
 	
@@ -92,20 +92,20 @@ public class Contact {
         cursor.close(); 
     }
     
-    public void setDaysToCall(int days) {
-    	daysToCall = days;
+    public void setDaysToContact(int days) {
+    	daysToContact = days;
     }
     
     public void setDescription(String desc) {
     	description = desc;
     }
     
-    public int getDaysToCall() {
-    	return daysToCall;
+    public int getDaysToContact() {
+    	return daysToContact;
     }
     
-    public int secondsToCall() {
-    	return daysToCall * 24 * 60 * 60;
+    public int secondsToContact() {
+    	return daysToContact * 24 * 60 * 60;
     }
     public String getDisplayName() {
     	return displayName;
@@ -120,6 +120,10 @@ public class Contact {
     
     public ArrayList<String> getPhoneNumbers() {
     	return phoneNumbers;
+    }
+    
+    public int nextTimeToContact() {
+    	return lastTimeContacted + secondsToContact();
     }
     
     
