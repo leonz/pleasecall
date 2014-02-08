@@ -10,17 +10,17 @@ import android.provider.ContactsContract;
 
 public class Contact {
 	
-	public String displayName;	
-	public ArrayList<String> phoneNumbers = new ArrayList<String>();
-	
-	public String contactId;
+	private String displayName;	
+	private ArrayList<String> phoneNumbers = new ArrayList<String>();
+	private int timesContacted;
+	private int lastTimeContacted;	
+	private String contactId;
 	
 	// Added in by the app
-	public String description;
-	public int daysToCall;
-	
-	public int timesContacted;
-	public int lastTimeContacted;
+	private String description;
+	private int daysToCall;
+
+
 	
 	public Contact(ContentResolver cr, Intent data, String desc, int days) {        
 		
@@ -42,7 +42,7 @@ public class Contact {
         setLastTimeContacted(cr, uri);
  
 		description = desc;
-		daysToCall = days;
+		setDaysToCall(days);
 		
 	}
 	
@@ -91,5 +91,37 @@ public class Contact {
         }
         cursor.close(); 
     }
+    
+    public void setDaysToCall(int days) {
+    	daysToCall = days;
+    }
+    
+    public void setDescription(String desc) {
+    	description = desc;
+    }
+    
+    public int getDaysToCall() {
+    	return daysToCall;
+    }
+    
+    public int secondsToCall() {
+    	return daysToCall * 24 * 60 * 60;
+    }
+    public String getDisplayName() {
+    	return displayName;
+    }
+    public int getLastTimeContacted() {
+    	return lastTimeContacted;
+    }
+
+    public String getDescription() {
+    	return description;
+    }
+    
+    public ArrayList<String> getPhoneNumbers() {
+    	return phoneNumbers;
+    }
+    
+    
     
 }
