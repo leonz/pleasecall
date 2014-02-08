@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
 //        
         // SMS
         ContentResolver contentResolver = getContentResolver();
-        contentResolver.registerContentObserver(Uri.parse("content://sms/sent"), true, new MessageObserver(new Handler()));
+        contentResolver.registerContentObserver(Uri.parse("content://sms"), true, new MessageObserver(new Handler(), getApplicationContext()));
     }
 
 
