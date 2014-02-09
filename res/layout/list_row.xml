@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="10dp"
     >
 	
     <TextView
@@ -21,7 +20,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/title"
         android:text=""
-        android:textSize="16dp" />
+        android:textSize="14dp" />
 
     <TextView
         android:id="@+id/details"
@@ -29,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/subtitle"
-        android:text="Details about the calls go here..."
+        android:text=""
         android:textSize="14dp" />
     
     <ToggleButton 
