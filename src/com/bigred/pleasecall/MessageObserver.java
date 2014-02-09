@@ -41,7 +41,7 @@ public class MessageObserver extends ContentObserver {
 	    String time = cur.getString(cur.getColumnIndex("date")); //date
 	    String protocol = cur.getString(cur.getColumnIndex("protocol")); //protocol
 	    if (protocol == null){
-	        Toast.makeText(context, "Sending to "+add +
+	        Toast.makeText(context, "Sending to "+ add +
 	            ".Time:"+time +" - "+body , Toast.LENGTH_SHORT).show();
 	    } else {
 	    	Toast.makeText(context, "Receive from "+add +	    

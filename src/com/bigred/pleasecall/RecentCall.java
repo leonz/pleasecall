@@ -1,7 +1,7 @@
 package com.bigred.pleasecall;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -14,49 +14,62 @@ import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-
-//gets the time of the last SMS message received (from a specific person)
-public class RecentSMS {
+public class RecentCall {
 	
 	private Context context;
 	private Uri uri;
 	public int lastContactedAt;
 	private List<Date> dates;
-	
-	
-	public RecentSMS(Context context, Uri uri){
+
+	public RecentCall(Context context, Uri uri){
 		this.context = context;
 		this.uri = uri;        
 	}
 	
 	public Date getLastDate(){
-		
-		Uri mSmsinboxQueryUri = Uri.parse("content://sms/sent");
-        Cursor cursor = context.getContentResolver().query(
-                mSmsinboxQueryUri,
-                new String[] { "_id", "address", "date", "body",
-                        "type" }, null, null, null);
-
-        String[] columns = new String[] { "address", "thread_id", "date",
-                "body", "type" };
+		Cursor cursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, null,
+                null, null, null);
+        int number = cursor.getColumnIndex(CallLog.Calls.NUMBER);
+        int type = cursor.getColumnIndex(CallLog.Calls.TYPE);
+        int date = cursor.getColumnIndex(CallLog.Calls.DATE);
+        int duration = cursor.getColumnIndex(CallLog.Calls.DURATION);
+        
         dates = new ArrayList<Date>();
         while (cursor.moveToNext()) {
-        	 String id = cursor.getString(0);
-             String address = cursor.getString(1);
-             String messsageDate = cursor.getString(2);
-             String body = cursor.getString(3);
-             Date messageDayTime = new Date(Long.valueOf(messsageDate));
-             
-             if(getContactByNumber(address).equals(uri.toString())){
-            	 dates.add(messageDayTime);
-             }  
+            String phNumber = cursor.getString(number);
+            String callType = cursor.getString(type);
+            String callDate = cursor.getString(date);
+            Date callDayTime = new Date(Long.valueOf(callDate));
+            String callDuration = cursor.getString(duration);
+            String dir = null;
+            int dircode = Integer.parseInt(callType);
+            switch (dircode) {
+            case CallLog.Calls.OUTGOING_TYPE:
+                dir = "OUTGOING";
+                break;
+
+            case CallLog.Calls.INCOMING_TYPE:
+                dir = "INCOMING";
+                break;
+
+            case CallLog.Calls.MISSED_TYPE:
+                dir = "MISSED";
+                break;
+            }
+            
+            if(getContactByNumber(phNumber).equals(uri.toString())){
+            	dates.add(callDayTime);
+            }            
+        }
+        cursor.close();
+        Collections.reverse(dates);
+        if(dates.size() > 0) {
+        	Log.i("dates:", dates.toString());
+        	return dates.get(0);
+        } else {
+        	return null;
         }
         
-		if(dates.size() > 0){
-			return dates.get(0);
-		} else {
-			return null;
-		}
 	}
 	
 	public String getContactByNumber(String number) {
@@ -84,4 +97,5 @@ public class RecentSMS {
 
 	    return ContactsContract.Contacts.CONTENT_LOOKUP_URI + "/" + lookupKey + "/" + contactId;
 	}
+	
 }
