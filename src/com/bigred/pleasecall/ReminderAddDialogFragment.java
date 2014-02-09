@@ -104,7 +104,7 @@ public class ReminderAddDialogFragment extends DialogFragment {
 		                for(Reminder r: values){
 		                	if (r.getUri().equals(contact_uri.toString())) {
 		                		CharSequence text = "Reminder for selected contact already exists!";
-								Toast.makeText(view.getContext(), text, Toast.LENGTH_SHORT).show();
+								Toast.makeText(view.getContext(), text, Toast.LENGTH_LONG).show();
 								return;
 		                	}		                		
 		                }
