@@ -31,6 +31,7 @@ public class ReminderAddDialogFragment extends DialogFragment {
 	private View view;
 	boolean importSuccess = false;
 	private String displayName;
+	private int frequency;
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -97,6 +98,9 @@ public class ReminderAddDialogFragment extends DialogFragment {
 		                datasource.open();
 		                
 		                EditText desc = (EditText) view.findViewById(R.id.contactdescription);
+		                
+		                Spinner spinner = (Spinner) view.findViewById(R.id.frequency_spinner);
+		                frequency = Integer.parseInt(spinner.getSelectedItem().toString());
 		            	
 		                Reminder d = datasource.createReminder(contact_uri, desc.getText().toString(), 2, 1);
 		                ((MainActivity) getActivity()).updateList();
@@ -147,7 +151,7 @@ public class ReminderAddDialogFragment extends DialogFragment {
 
             	EditText desc = (EditText) view.findViewById(R.id.contactdescription);
             	desc.setVisibility(View.VISIBLE);      
-            	
+
             	importSuccess = true;
                 
                 break;
