@@ -97,8 +97,11 @@ public class MainActivity extends Activity {
         		Log.i("MSG: ", "Cl");
         		showDialog();
         		break;
-    		default:
-    			updateList();
+        	case R.id.action_exit:
+        		 finish();
+                 System.exit(0);
+                 break;
+    		default:    			
     			break;
         }
 		return false;
