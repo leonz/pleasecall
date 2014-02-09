@@ -19,8 +19,6 @@ public class Contact {
 	// Added in by the app
 	private String description;
 	private int daysToContact;
-
-
 	
 	public Contact(ContentResolver cr, Intent data, String desc, int days) {        
 		
