@@ -1,6 +1,5 @@
 package com.bigred.pleasecall;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -14,9 +13,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.TwoLineListItem;
 
 class ReminderAdapter extends BaseAdapter {
 
@@ -60,7 +62,7 @@ class ReminderAdapter extends BaseAdapter {
 
         TextView text1 = (TextView) vi.findViewById(R.id.title);
         TextView text2 = (TextView) vi.findViewById(R.id.subtitle);
-        ToggleButton enabled = (ToggleButton) vi.findViewById(R.id.togglebutton);
+        Switch enabled = (Switch) vi.findViewById(R.id.togglebutton);
 
         // Get the contact's name
     	int idx;
@@ -76,14 +78,33 @@ class ReminderAdapter extends BaseAdapter {
         }
         vi.setTag(reminders.get(position).getId());
         
+        
+        final long id = reminders.get(position).getId();
         enabled.setOnClickListener(new OnClickListener() {
         	 
       	  @Override
       	  public void onClick(View v) {
-                      //is chkIos checked?
-      		if (!((ToggleButton) v).isChecked()) {
-      			Log.i("checkbox", "changed");
+      		int enabled;
+      		if (!((Switch) v).isChecked()) { // Enabled -> Disabled
+      			Log.i("checkbox", "enabled->disabled");
+      			enabled = 0;
+				Toast.makeText(v.getContext(), "Reminder disabled", Toast.LENGTH_SHORT).show();
+      		} else { // Disabled -> Enabled
+      			Log.i("checkbox", "disabled->enabled");
+				Toast.makeText(v.getContext(), "Reminder enabled", Toast.LENGTH_SHORT).show();      			
+				enabled = 1;
       		}
+      		
+			// Save to database
+        	ReminderDataSource datasource = new ReminderDataSource(v.getContext());
+            datasource.open();	                
+            
+            // Set this reminder to value of enabled
+            Reminder rm = datasource.getReminder(id);
+            rm.setEnabled(enabled);
+            datasource.editReminder(id, rm.getUri(), rm.getDescription(), rm.getFrequency(), rm.getSMSEnabled(), enabled);
+          
+            datasource.close();
        
       	  }
       	});

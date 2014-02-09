@@ -73,7 +73,7 @@ public class ReminderEditDialogFragment extends DialogFragment {
 			})
 			.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
-				    Toast.makeText(view.getContext(), "Fine, we won't add a reminder :(", Toast.LENGTH_LONG).show();
+				    Toast.makeText(view.getContext(), "Reminder not saved", Toast.LENGTH_LONG).show();
 					ReminderEditDialogFragment.this.getDialog().cancel();
 				}
 			});		
@@ -99,6 +99,7 @@ public class ReminderEditDialogFragment extends DialogFragment {
 		
 		CheckBox enabled = (CheckBox) view.findViewById(R.id.checkdisable);
 		Log.i("data: ", currentReminder.getEnabled() + "");
+		if(currentReminder.getEnabled() == 0) enabled.setChecked(true);
 		if(currentReminder.getEnabled() == 1) enabled.setChecked(false);
 	
 		return builder.create();
@@ -124,12 +125,12 @@ public class ReminderEditDialogFragment extends DialogFragment {
 	                frequency = Integer.parseInt(spinner.getSelectedItem().toString());
 	                
 	                int sms_enabled = ((CheckBox) view.findViewById(R.id.checktext)).isChecked() ? 1 : 0;
-	                int enabled = ((CheckBox) view.findViewById(R.id.checkdisable)).isChecked() ? 1 : 0;
+	                int enabled = ((CheckBox) view.findViewById(R.id.checkdisable)).isChecked() ? 0 : 1;
 	                
 	                datasource.editReminder(currentReminder.getId(), currentReminder.getUri(), desc.getText().toString(), frequency, sms_enabled, enabled);
 	                ((MainActivity) getActivity()).updateList();
 	                
-					CharSequence text = "Reminder added successfully!";
+					CharSequence text = "Reminder saved successfully!";
 					Toast.makeText(view.getContext(), text, Toast.LENGTH_SHORT).show();
 					dismiss();
 					

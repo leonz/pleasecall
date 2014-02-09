@@ -22,21 +22,12 @@
         android:text=""
         android:textSize="14dp" />
 
-    <TextView
-        android:id="@+id/details"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/subtitle"
-        android:text=""
-        android:textSize="14dp" />
-    
-    <ToggleButton 
+    <Switch 
     	android:id="@+id/togglebutton"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:textOn="Disable"
-    	android:textOff="Enable"
+    	android:textOn="Enabled"
+    	android:textOff="Disabled"
     	android:layout_alignParentRight="true"
     	android:layout_below="@id/subtitle"
     	android:layout_alignBaseline="@id/title"
