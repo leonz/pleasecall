@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.provider.ContactsContract;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -77,7 +78,7 @@ public class MainActivity extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                     int position, long id) {
             	
-            	final String names[] = {"Call", "Edit","Delete"};
+            	final String names[] = {"Contact", "Edit","Delete"};
             	final long tag = Long.parseLong(view.getTag() + "");
             	
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
@@ -108,33 +109,41 @@ public class MainActivity extends Activity {
                             int position, long id) {
                     		dialog.dismiss();
                     		switch(position){
-                    		case 1:
-                    			ReminderEditDialogFragment newFragment = new ReminderEditDialogFragment();
-
-                            	Bundle args = new Bundle();            	
-                                args.putString("id", "" + view.getTag());   
-                                
-                            	newFragment.setArguments(args);
-                                newFragment.show(getFragmentManager(), "dialog");
-                                break;
-                    		case 2:
-                    			new AlertDialog.Builder(MainActivity.this)
-                    	        .setIcon(android.R.drawable.ic_dialog_alert)
-                    	        .setTitle("Delete")
-                    	        .setMessage("Are you sure you want to delete this reminder?")
-                    	        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-
-                    	            @Override
-                    	            public void onClick(DialogInterface dialog, int which) {
-                    	            	// Delete
-                    	            	dataSource.deleteReminder(Long.parseLong(view.getTag() + ""));
-                    	            	updateList();
-                    	            }
-
-                    	        })
-                    	        .setNegativeButton("Cancel", null)
-                    	        .show();
-                    			break;
+	                    		case 0:
+	                    			Reminder r = dataSource.getReminder(Long.parseLong(view.getTag() + ""));
+	                    			Intent intent = new Intent(Intent.ACTION_VIEW);
+	                    			 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	                    			 Uri uri = Uri.withAppendedPath(Uri.parse(r.getUri()), "");
+	                    			    intent.setData(uri);
+	                    			 getApplicationContext().startActivity(intent);
+	                    			break;
+	                    		case 1:
+	                    			ReminderEditDialogFragment newFragment = new ReminderEditDialogFragment();
+	
+	                            	Bundle args = new Bundle();            	
+	                                args.putString("id", "" + view.getTag());   
+	                                
+	                            	newFragment.setArguments(args);
+	                                newFragment.show(getFragmentManager(), "dialog");
+	                                break;
+	                    		case 2:
+	                    			new AlertDialog.Builder(MainActivity.this)
+	                    	        .setIcon(android.R.drawable.ic_dialog_alert)
+	                    	        .setTitle("Delete")
+	                    	        .setMessage("Are you sure you want to delete this reminder?")
+	                    	        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+	
+	                    	            @Override
+	                    	            public void onClick(DialogInterface dialog, int which) {
+	                    	            	// Delete
+	                    	            	dataSource.deleteReminder(Long.parseLong(view.getTag() + ""));
+	                    	            	updateList();
+	                    	            }
+	
+	                    	        })
+	                    	        .setNegativeButton("Cancel", null)
+	                    	        .show();
+	                    			break;
                     		}                    		
                     }
                 });
