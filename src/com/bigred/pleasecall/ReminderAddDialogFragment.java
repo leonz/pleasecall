@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ReminderAddDialogFragment extends DialogFragment {
 	
@@ -28,7 +29,8 @@ public class ReminderAddDialogFragment extends DialogFragment {
 	private String contact_uri = "";
 	private Handler threadHandler = new Handler();
 	private View view;
-
+	boolean importSuccess = false;
+	private String displayName;
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -53,15 +55,24 @@ public class ReminderAddDialogFragment extends DialogFragment {
 			.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int id) {
-					// TODO save to db
+					// We are overriding this: see below
+
+					
+					if (!importSuccess) {
+						CharSequence text = "Please import a contact!";
+						Toast.makeText(view.getContext(), text, Toast.LENGTH_LONG).show();
+					}
 					
 				}
 			})
 			.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
+				    Toast.makeText(view.getContext(), "Fine, we won't add a reminder :(", Toast.LENGTH_LONG).show();
 					ReminderAddDialogFragment.this.getDialog().cancel();
 				}
 			});
+		
+		
 		
 		Spinner spinner = (Spinner) view.findViewById(R.id.frequency_spinner);
 		// Create an ArrayAdapter using the string array and a default spinner layout
@@ -73,6 +84,28 @@ public class ReminderAddDialogFragment extends DialogFragment {
 		spinner.setAdapter(adapter);
 		
 		return builder.create();
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		AlertDialog d = (AlertDialog)getDialog();
+		if (d != null) {
+			Button positiveButton = (Button) d.getButton(Dialog.BUTTON_POSITIVE);
+			positiveButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (!importSuccess) {
+						CharSequence text = "Please import a contact!";
+						Toast.makeText(view.getContext(), text, Toast.LENGTH_SHORT).show();
+					} else {
+						CharSequence text = "Reminder added successfully!";
+						Toast.makeText(view.getContext(), text, Toast.LENGTH_SHORT).show();
+						dismiss();
+					}
+				}
+			});
+		}
 	}
 
 	public void doLaunchContactPicker(View view) {
@@ -90,7 +123,7 @@ public class ReminderAddDialogFragment extends DialogFragment {
             	contact_uri = result.toString();
             	
             	// Will only appear if following code doesn't work
-            	String displayName = "Error retrieving contact name";
+            	displayName = "Error retrieving contact name";
             	
             	// Get the contact's name
             	int idx;
@@ -111,7 +144,9 @@ public class ReminderAddDialogFragment extends DialogFragment {
             	descText.setVisibility(View.VISIBLE);
 
             	EditText desc = (EditText) view.findViewById(R.id.contactdescription);
-            	desc.setVisibility(View.VISIBLE);           	
+            	desc.setVisibility(View.VISIBLE);      
+            	
+            	importSuccess = true;
             	
                 break;
             }
