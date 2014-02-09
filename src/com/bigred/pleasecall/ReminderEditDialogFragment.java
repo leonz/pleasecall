@@ -34,7 +34,7 @@ public class ReminderEditDialogFragment extends DialogFragment {
 	boolean importSuccess = false;
 	private String displayName;
 	private int frequency;
-
+	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -44,10 +44,10 @@ public class ReminderEditDialogFragment extends DialogFragment {
 
 		// Inflate and set the layout for the dialog
 		// Pass null as the parent view because its going in the dialog layout
-		view = inflater.inflate(R.layout.dialog_add, null);
+		view = inflater.inflate(R.layout.fragment_reminder_edit_dialog, null);
 				
 		builder.setView(view)
-			.setTitle("Create a Reminder")
+			.setTitle("Modify Reminder for " + getArguments().getString("name"))
 			// Add action buttons
 			.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
 				@Override

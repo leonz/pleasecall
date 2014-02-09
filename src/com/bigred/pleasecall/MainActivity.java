@@ -62,6 +62,11 @@ public class MainActivity extends Activity {
                     int position, long id) {
             	Log.i("click:", view.getTag() + "");
             	ReminderEditDialogFragment newFragment = new ReminderEditDialogFragment();
+            	
+            	Bundle args = new Bundle();
+                args.putString("name", "Leon");
+                
+            	newFragment.setArguments(args);
                 newFragment.show(getFragmentManager(), "dialog");
             }
         });
