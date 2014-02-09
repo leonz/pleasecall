@@ -19,6 +19,7 @@ public class Contact {
 	// Added in by the app
 	private String description;
 	private int frequency;
+	private int daysToContact;
 	
 	private boolean enabled;
 

@@ -1,16 +1,19 @@
 package com.bigred.pleasecall;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.widget.Toast;
 
-public class NotifierService extends Service {
-	public NotifierService() {
-	}
-
+public class NotifierAlarmReceiver extends BroadcastReceiver {
+ 
 	@Override
-	public IBinder onBind(Intent intent) {
-		// TODO: Return the communication channel to the service.
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
+    public void onReceive(Context context, Intent intent)
+    {
+        // TODO Auto-generated method stub
+        Toast.makeText(context, "Alarm Triggered", Toast.LENGTH_LONG).show();
+    }
+      
 }

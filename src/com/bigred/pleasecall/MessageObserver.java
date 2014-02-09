@@ -17,7 +17,7 @@ public class MessageObserver extends ContentObserver {
 		this.context = context;
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public void onChange(boolean selfChange, Uri uri) {		
 	    super.onChange(selfChange);
@@ -26,8 +26,8 @@ public class MessageObserver extends ContentObserver {
 	}
 
 	protected void querySMS() {
-	    Uri uriSMS = Uri.parse("content://sms/");
-	    Cursor cur = context.getApplicationContext().getContentResolver().query(uriSMS, null, null, null, null);
+	    Uri uriSMS = Uri.parse("content://sms/");	    
+	    Cursor cur = context.getContentResolver().query(uriSMS, null, null, null, null);
 	    cur.moveToNext(); // this will make it point to the first record, which is the last SMS sent
 	    String body = cur.getString(cur.getColumnIndex("body")); //content of sms
 	    String add = cur.getString(cur.getColumnIndex("address")); //phone num

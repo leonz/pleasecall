@@ -44,11 +44,14 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".NotifierAlarmReceiver" android:process=":remote"/>
+        
         <service
-            android:name="com.bigred.pleasecall.NotifierService"
+            android:name="com.bigred.pleasecall.NotifierAlarmReceiver"
             android:enabled="true"
             android:exported="true" >
         </service>
+        
     </application>
 
 </manifest>
