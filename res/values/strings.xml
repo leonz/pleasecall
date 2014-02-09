@@ -41,5 +41,6 @@
 		<item>29</item>
 		<item>30</item>
 	</string-array>
+    <string name="exit">Exit</string>
 
 </resources>
