@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:padding="10dp"
+    >
 	
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/icon"
-        android:paddingBottom="10dp"
-        android:text="Item 1"
-        android:textColor="#CC0033"
+        android:text=""
+        android:textStyle="bold"
         android:textSize="16dp" />
 
     <TextView
@@ -18,21 +19,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/title"
-        android:paddingBottom="10dp"
-        android:text="subtitle"
-        android:textColor="#CC0033"
+        android:layout_below="@id/title"
+        android:text=""
         android:textSize="16dp" />
 
-    <CheckBox
-        android:id="@+id/checkbox"
+    <TextView
+        android:id="@+id/details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/subtitle"
-        android:layout_alignBottom="@+id/subtitle"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"        
-        android:focusable="false"
-		android:focusableInTouchMode="false"/>
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/subtitle"
+        android:text="Details about the calls go here..."
+        android:textSize="14dp" />
+    
+    <ToggleButton 
+    	android:id="@+id/togglebutton"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:textOn="Enable"
+    	android:textOff="Disable"
+    	android:layout_alignParentRight="true"
+    	android:layout_below="@id/subtitle"
+    	android:layout_alignBaseline="@id/title"
+    	android:layout_marginRight="20dp"
+    	android:onClick="onToggleClicked"
+    	android:focusable="false" />
+    
     
 </RelativeLayout>

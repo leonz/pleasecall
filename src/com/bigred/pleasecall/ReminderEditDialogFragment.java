@@ -124,7 +124,7 @@ public class ReminderEditDialogFragment extends DialogFragment {
 	                frequency = Integer.parseInt(spinner.getSelectedItem().toString());
 	                
 	                int sms_enabled = ((CheckBox) view.findViewById(R.id.checktext)).isChecked() ? 1 : 0;
-	                int enabled = ((CheckBox) view.findViewById(R.id.checkdisable)).isChecked() ? 1 : 0;
+	                int enabled = ((CheckBox) view.findViewById(R.id.checkdisable)).isChecked() ? 0 : 1;
 	                
 	                datasource.editReminder(currentReminder.getId(), currentReminder.getUri(), desc.getText().toString(), frequency, sms_enabled, enabled);
 	                ((MainActivity) getActivity()).updateList();

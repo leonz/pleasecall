@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 import android.widget.TwoLineListItem;
 
 class ReminderAdapter extends BaseAdapter {
@@ -59,7 +60,7 @@ class ReminderAdapter extends BaseAdapter {
 
         TextView text1 = (TextView) vi.findViewById(R.id.title);
         TextView text2 = (TextView) vi.findViewById(R.id.subtitle);
-        CheckBox enabled = (CheckBox) vi.findViewById(R.id.checkbox);
+        ToggleButton enabled = (ToggleButton) vi.findViewById(R.id.togglebutton);
 
         // Get the contact's name
     	int idx;
@@ -80,7 +81,7 @@ class ReminderAdapter extends BaseAdapter {
       	  @Override
       	  public void onClick(View v) {
                       //is chkIos checked?
-      		if (!((CheckBox) v).isChecked()) {
+      		if (!((ToggleButton) v).isChecked()) {
       			Log.i("checkbox", "changed");
       		}
        
