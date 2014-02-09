@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,6 +47,8 @@ public class MainActivity extends Activity {
       
         listData = dataSource.getAllReminders();
         
+
+        
         ListView list=(ListView)findViewById(R.id.ExpList);
         listAdapter = new ReminderAdapter(this, listData);
         list.setAdapter(listAdapter);
@@ -64,7 +67,7 @@ public class MainActivity extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                     int position, long id) {
             	
-            	final String names[] = {"Contact", "Edit","Delete"};
+            	final String names[] = {"Contact", "Edit", "Delete"};
             	final long tag = Long.parseLong(view.getTag() + "");
             	
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
@@ -142,12 +145,22 @@ public class MainActivity extends Activity {
     public void updateList(){
     	listAdapter.setListData(dataSource.getAllReminders());
     	
+    	if (listAdapter.getCount() == 0) {
+        		TextView noreminders = (TextView) findViewById(R.id.noreminders);
+        		noreminders.setVisibility(View.VISIBLE);
+    	} else {
+    		TextView noreminders = (TextView) findViewById(R.id.noreminders);
+    		noreminders.setVisibility(View.GONE);
+    	}
+    	
     	runOnUiThread(new Runnable() {
             @Override
             public void run() {            	
             	listAdapter.notifyDataSetChanged();
             }
         });
+    	
+
     }
     
     public void onResume(){

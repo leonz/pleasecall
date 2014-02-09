@@ -53,7 +53,7 @@ class ReminderAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
     	View vi = convertView;
-        
+    	        
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

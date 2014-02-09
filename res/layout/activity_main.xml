@@ -11,5 +11,16 @@
    	 	android:layout_height="match_parent"
     	android:layout_width="match_parent"
     	android:groupIndicator="@null" />  
+    	
+    <TextView
+        android:id="@+id/noreminders"
+        android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_marginTop="15dp"
+		android:textStyle="italic"
+		android:textColor="#999"
+        android:text="You don't have any reminders for your contacts yet :(  Add some now!"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="gone" />
     
 </RelativeLayout>
