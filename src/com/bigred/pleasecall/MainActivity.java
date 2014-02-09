@@ -1,15 +1,18 @@
 package com.bigred.pleasecall;
 
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +29,8 @@ public class MainActivity extends Activity {
         // SMS listener
         ContentResolver contentResolver = getContentResolver();
         contentResolver.registerContentObserver(Uri.parse("content://sms"), true, new MessageObserver(new Handler(), getApplicationContext()));
+    
+        
     }
     
     public void onResume(){
@@ -68,6 +73,5 @@ public class MainActivity extends Activity {
     	ReminderAddDialogFragment newFragment = new ReminderAddDialogFragment();
         newFragment.show(getFragmentManager(), "dialog");
     }
-
-
+    
 }
