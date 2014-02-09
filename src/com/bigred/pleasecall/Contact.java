@@ -18,10 +18,10 @@ public class Contact {
 	
 	// Added in by the app
 	private String description;
-	private int daysToContact;
-
-
+	private int frequency;
 	
+	private boolean enabled;
+
 	public Contact(ContentResolver cr, Intent data, String desc, int days) {        
 		
 		Uri uri = data.getData();
@@ -42,7 +42,9 @@ public class Contact {
         setLastTimeContacted(cr, uri);
  
 		description = desc;
-		setDaysToContact(days);
+		setFrequency(days);
+		
+		enabled = true;
 		
 	}
 	
@@ -92,20 +94,20 @@ public class Contact {
         cursor.close(); 
     }
     
-    public void setDaysToContact(int days) {
-    	daysToContact = days;
+    public void setFrequency(int days) {
+    	frequency = days;
     }
     
     public void setDescription(String desc) {
     	description = desc;
     }
     
-    public int getDaysToContact() {
-    	return daysToContact;
+    public int getFrequency() {
+    	return frequency;
     }
     
-    public int secondsToContact() {
-    	return daysToContact * 24 * 60 * 60;
+    public int secondsFrequency() {
+    	return frequency * 24 * 60 * 60;
     }
     public String getDisplayName() {
     	return displayName;
@@ -123,9 +125,16 @@ public class Contact {
     }
     
     public int nextTimeToContact() {
-    	return lastTimeContacted + secondsToContact();
+    	return lastTimeContacted + secondsFrequency();
     }
     
+    public void disable() {
+    	enabled = false;
+    }
+    
+    public void enable() {
+    	enabled = true;
+    }
     
     
 }
