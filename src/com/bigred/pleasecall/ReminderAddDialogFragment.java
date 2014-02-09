@@ -1,5 +1,7 @@
 package com.bigred.pleasecall;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -95,6 +97,15 @@ public class ReminderAddDialogFragment extends DialogFragment {
 						// Save to database
 		            	ReminderDataSource datasource = new ReminderDataSource(getActivity());
 		                datasource.open();
+		                
+		                List<Reminder> values = datasource.getAllReminders();
+		                for(Reminder r: values){
+		                	if (r.getUri().equals(contact_uri.toString())) {
+		                		CharSequence text = "Reminder for selected contact already exists!";
+								Toast.makeText(view.getContext(), text, Toast.LENGTH_SHORT).show();
+								return;
+		                	}		                		
+		                }
 		                
 		                EditText desc = (EditText) view.findViewById(R.id.contactdescription);
 		            	
