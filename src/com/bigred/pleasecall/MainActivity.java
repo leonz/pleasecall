@@ -16,16 +16,14 @@ import android.view.MenuItem;
 
 public class MainActivity extends Activity {
 
+	private static final int POLL_PERIOD = 600000;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        // Start SMS and phone broadcast listeners
-//        Intent i= new Intent(this, MessageService.class);
-//        startService(i);
-//        
-        // SMS
+        // SMS listener
         ContentResolver contentResolver = getContentResolver();
         contentResolver.registerContentObserver(Uri.parse("content://sms"), true, new MessageObserver(new Handler(), getApplicationContext()));
     }
@@ -40,13 +38,10 @@ public class MainActivity extends Activity {
     	Intent i = new Intent(this, NotifierAlarmReceiver.class);
     	PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
     	AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
-    	am.cancel(pi); // cancel any existing alarms
-//    	am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-//    	    SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
-//    	    AlarmManager.INTERVAL_DAY, pi);
+    	am.cancel(pi);
     	am.setRepeating(AlarmManager.RTC_WAKEUP,
-    			SystemClock.elapsedRealtime() + 5000,
-        	    15000, pi);
+    			SystemClock.elapsedRealtime() + POLL_PERIOD,
+    			POLL_PERIOD, pi);
 
     }
 

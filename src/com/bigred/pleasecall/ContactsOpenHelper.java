@@ -8,11 +8,13 @@ public class ContactsOpenHelper extends SQLiteOpenHelper {
 	
 	private static final int DATABASE_VERSION = 1;
 	public static final String REMINDERS_TABLE_NAME = "Reminders";
-	public static String COL_DESCRIPTION = "Description";
-	public static String COL_FREQUENCY = "Frequency";
-	public static String COL_ENABLE = "Enabled";
 	public static String COL_ID = "_id";
-	public static String COL_URI = "_uri";
+	public static String COL_URI = "contact_uri";
+	public static String COL_DESCRIPTION = "description";
+	public static String COL_FREQUENCY = "frequency";
+	public static String COL_ENABLE = "enabled";
+	
+	
 	
 	//Database creation thing
 	
@@ -26,7 +28,7 @@ public class ContactsOpenHelper extends SQLiteOpenHelper {
 			"CREATE TABLE " + REMINDERS_TABLE_NAME + " ( " + 
 			COL_ID + " integer primary key autoincrement, " + 
 			COL_DESCRIPTION + " text not null, " +
-			COL_FREQUENCY + " text not null, " +
+			COL_FREQUENCY + " integer not null, " +
 			COL_ENABLE + " integer not null, " + 
 			COL_URI + " text not null " +
 			");";

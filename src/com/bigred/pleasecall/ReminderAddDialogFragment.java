@@ -51,6 +51,7 @@ public class ReminderAddDialogFragment extends DialogFragment {
 				@Override
 				public void onClick(DialogInterface dialog, int id) {
 					// TODO save to db
+					
 				}
 			})
 			.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
