@@ -51,14 +51,13 @@ public class ReminderDataSource {
     return newReminder;
   }
 
-  public void deleteReminder(Reminder reminder) {
-    long id = reminder.getId();
+  public void deleteReminder(long id) {    
     System.out.println("Reminder deleted with id: " + id);
     database.delete(ReminderOpenHelper.REMINDERS_TABLE_NAME, ReminderOpenHelper.COL_ID
         + " = " + id, null);
   }
   
-  public void editReminder(Long id, String uri, String description, int frequency, int sms_enabled, int enabled) {
+  public void editReminder(long id, String uri, String description, int frequency, int sms_enabled, int enabled) {
 	  	ContentValues values = new ContentValues();
 		values.put(ReminderOpenHelper.COL_URI, uri);
 		values.put(ReminderOpenHelper.COL_DESCRIPTION, description);

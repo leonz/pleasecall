@@ -12,23 +12,30 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -56,17 +63,83 @@ public class MainActivity extends Activity {
         listAdapter = new ReminderAdapter(this, listData);
         list.setAdapter(listAdapter);
         list.setOnItemClickListener(new OnItemClickListener() {
-        	 
+       	 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
-            	ReminderEditDialogFragment newFragment = new ReminderEditDialogFragment();
+            	// Expand			
+            }
+        });
+        
+        list.setOnItemLongClickListener(new OnItemLongClickListener() {
+        	 
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                    int position, long id) {
             	
-            	Bundle args = new Bundle();            	
-                args.putString("id", "" + view.getTag());   
+            	final String names[] = {"Call", "Edit","Delete"};
+            	final long tag = Long.parseLong(view.getTag() + "");
+            	
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View convertView = (View) inflater.inflate(R.layout.popup_list, null);                
+                alertDialog.setView(convertView);                
+                ListView lv = (ListView) convertView.findViewById(R.id.popup_list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names){
+
+                    @Override
+                    public View getView(int position, View convertView,
+                            ViewGroup parent) {
+                        View view =super.getView(position, convertView, parent);
+                        TextView textView=(TextView) view.findViewById(android.R.id.text1);                                                
+                        textView.setTextColor(Color.BLACK);
+                        view.setTag(tag);
+                        return view;
+                    }
+                };
                 
-            	newFragment.setArguments(args);
-                newFragment.show(getFragmentManager(), "dialog");
+                lv.setAdapter(adapter);                
+                final AlertDialog dialog = alertDialog.show();
+                
+                lv.setOnItemClickListener(new OnItemClickListener() {
+                  	 
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, final View view,
+                            int position, long id) {
+                    		dialog.dismiss();
+                    		switch(position){
+                    		case 1:
+                    			ReminderEditDialogFragment newFragment = new ReminderEditDialogFragment();
+
+                            	Bundle args = new Bundle();            	
+                                args.putString("id", "" + view.getTag());   
+                                
+                            	newFragment.setArguments(args);
+                                newFragment.show(getFragmentManager(), "dialog");
+                                break;
+                    		case 2:
+                    			new AlertDialog.Builder(MainActivity.this)
+                    	        .setIcon(android.R.drawable.ic_dialog_alert)
+                    	        .setTitle("Delete")
+                    	        .setMessage("Are you sure you want to delete this reminder?")
+                    	        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    	            @Override
+                    	            public void onClick(DialogInterface dialog, int which) {
+                    	            	// Delete
+                    	            	dataSource.deleteReminder(Long.parseLong(view.getTag() + ""));
+                    	            	updateList();
+                    	            }
+
+                    	        })
+                    	        .setNegativeButton("Cancel", null)
+                    	        .show();
+                    			break;
+                    		}                    		
+                    }
+                });
+
+				return false;
             }
         });
     }
