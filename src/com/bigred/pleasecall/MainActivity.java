@@ -60,6 +60,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
+            	Log.i("click:", dataSource.getReminder(Long.parseLong("" + view.getTag())).getUri() + "");
             	Log.i("click:", view.getTag() + "");
             	ReminderEditDialogFragment newFragment = new ReminderEditDialogFragment();
             	

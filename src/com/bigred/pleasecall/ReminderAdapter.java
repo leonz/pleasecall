@@ -73,7 +73,7 @@ class ReminderAdapter extends BaseAdapter {
         if(reminders.get(position).getEnabled() == 1){
         	enabled.setChecked(true);
         }
-        vi.setTag(reminders.get(position).getUri());
+        vi.setTag(reminders.get(position).getId());
         
         enabled.setOnClickListener(new OnClickListener() {
         	 
