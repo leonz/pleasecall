@@ -14,6 +14,8 @@ public class ReminderOpenHelper extends SQLiteOpenHelper {
 	public static String COL_FREQUENCY = "frequency";
 	public static String COL_SMSENABLE = "sms_enabled";
 	public static String COL_ENABLE = "enabled";
+	public static String COL_DISMISS = "dismiss_until";
+	public static String COL_REMINDAFTER = "remind_after";
 	
 	//Database creation thing
 	
@@ -30,7 +32,9 @@ public class ReminderOpenHelper extends SQLiteOpenHelper {
 			COL_FREQUENCY + " integer not null, " +
 			COL_SMSENABLE + " integer not null, " + 
 			COL_ENABLE + " integer not null, " + 
-			COL_URI + " text not null " +
+			COL_URI + " text not null, " +
+			COL_DISMISS + " text, " +
+			COL_REMINDAFTER + " text " +
 			");";
 	
 	ReminderOpenHelper(Context context) {

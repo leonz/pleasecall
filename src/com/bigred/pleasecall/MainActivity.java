@@ -40,15 +40,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        // SMS listener
-        ContentResolver contentResolver = getContentResolver();
-        contentResolver.registerContentObserver(Uri.parse("content://sms"), true, new MessageObserver(new Handler(), getApplicationContext()));
-        
-        // SMS tester - Kyu
-        RecentSMS smsTracker = new RecentSMS();
-        
-        
+                
         dataSource = new ReminderDataSource(this);
         dataSource.open();
       

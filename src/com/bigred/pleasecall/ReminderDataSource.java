@@ -19,7 +19,9 @@ public class ReminderDataSource {
 		  ReminderOpenHelper.COL_URI,		  
 		  ReminderOpenHelper.COL_FREQUENCY,
 		  ReminderOpenHelper.COL_SMSENABLE,
-		  ReminderOpenHelper.COL_ENABLE};
+		  ReminderOpenHelper.COL_ENABLE,
+		  ReminderOpenHelper.COL_DISMISS,
+		  ReminderOpenHelper.COL_REMINDAFTER};
 
   public ReminderDataSource(Context context) {
     dbHelper = new ReminderOpenHelper(context);
@@ -67,6 +69,20 @@ public class ReminderDataSource {
 	  database.update(ReminderOpenHelper.REMINDERS_TABLE_NAME,
 		        values, ReminderOpenHelper.COL_ID + "=" + id, null);
   }
+  
+  public void editRemindAfter(long id, String remindAfter){
+	  	ContentValues values = new ContentValues();
+		values.put(ReminderOpenHelper.COL_REMINDAFTER, remindAfter);
+	  database.update(ReminderOpenHelper.REMINDERS_TABLE_NAME,
+		        values, ReminderOpenHelper.COL_ID + "=" + id, null);
+  }
+  
+  public void editDismiss(long id, String dismiss){
+	  	ContentValues values = new ContentValues();
+		values.put(ReminderOpenHelper.COL_DISMISS, dismiss);
+	  database.update(ReminderOpenHelper.REMINDERS_TABLE_NAME,
+		        values, ReminderOpenHelper.COL_ID + "=" + id, null);
+  }
 
   public Reminder getReminder(long id) {
 	    
@@ -105,7 +121,8 @@ public class ReminderDataSource {
     reminder.setFrequency(cursor.getInt(3));
     reminder.setSMSEnabled(cursor.getInt(4));
     reminder.setEnabled(cursor.getInt(5));
-    
+    reminder.setDismiss(cursor.getString(6));
+    reminder.setRemindAfter(cursor.getString(7));
     
     return reminder;
   }

@@ -20,11 +20,9 @@ import android.widget.Toast;
 
 public class NotifierAlarmReceiver extends BroadcastReceiver {
  
-	private Context context;
 	@Override
     public void onReceive(Context context, Intent intent)
-    {
-		this.context = context;
+    {		
         // TODO Auto-generated method stub 
         Toast.makeText(context, "Alarm Triggered", Toast.LENGTH_LONG).show();
         
@@ -49,25 +47,25 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
         	}
         	
         	Log.i("notify:", "" + Integer.parseInt(Uri.parse(r.getUri() + "").getLastPathSegment()));
-        	notification(Integer.parseInt(Uri.parse(r.getUri() + "").getLastPathSegment()));
-        	notification(1);
-        	notification(2);
-        	notification(3);
+        	notification(context, Integer.parseInt(Uri.parse(r.getUri() + "").getLastPathSegment()));
+
         }
         
     }
 	
-	public void notification(int contactID) {
+	public void notification(Context context, int contactID) {
 			
 			//button1--DISMISS
-			Intent dismissIntent = new Intent(context, MainActivity.class);
-			dismissIntent.setAction("com.example.android.pingme.ACTION_DISMISS");
-			PendingIntent piDismiss = PendingIntent.getService(context, 0, dismissIntent, 0);
+			Intent dismissIntent = new Intent(context, DismissReceiver.class);
+			PendingIntent piDismiss = PendingIntent.getBroadcast(context.getApplicationContext(), 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			dismissIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			dismissIntent.putExtra("id",  "sdsf");
 			
 			//button2--REMIND LATER	
-			Intent snoozeIntent = new Intent(context, MainActivity.class);
-			snoozeIntent.setAction("com.example.android.pingme.ACTION_SNOOZE");
-			PendingIntent piSnooze = PendingIntent.getService(context, 0, snoozeIntent, 0);
+			Intent snoozeIntent = new Intent(context, RemindLaterReceiver.class);
+			PendingIntent piSnooze = PendingIntent.getService(context.getApplicationContext(), 0, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			snoozeIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			snoozeIntent.putExtra("id", contactID + "tasda");
 			
 			NotificationCompat.Builder builder =
 			        new NotificationCompat.Builder(context)
@@ -101,7 +99,7 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
 			
 			NotificationManager mNotificationManager =
 				    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-			mNotificationManager.notify(0, builder.build());
+			mNotificationManager.notify(contactID, builder.build());
 		
 	}
       

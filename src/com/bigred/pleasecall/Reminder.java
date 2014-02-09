@@ -7,7 +7,7 @@ public class Reminder {
 	private int frequency;
 	private int enabled;
 	private int SMSenabled;
-	private String description;
+	private String description, dismiss, remindAfter;
 	
 	public Reminder(){
 		
@@ -37,6 +37,14 @@ public class Reminder {
 		this.description = description;
 	}
 	
+	public void setDismiss(String dismiss){
+		this.dismiss = dismiss;
+	}
+	
+	public void setRemindAfter(String remindAfter){
+		this.remindAfter = remindAfter;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -59,5 +67,13 @@ public class Reminder {
 	
 	public String getDescription(){
 		return description;
+	}
+	
+	public String getDismissUntil(){
+		return dismiss;
+	}
+	
+	public String getRemindAfter(){
+		return remindAfter;
 	}
 }
