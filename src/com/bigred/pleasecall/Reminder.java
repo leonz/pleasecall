@@ -6,6 +6,7 @@ public class Reminder {
 	private String uri;
 	private int frequency;
 	private int enabled;
+	private int SMSenabled;
 	private String description;
 	
 	public Reminder(){
@@ -22,6 +23,10 @@ public class Reminder {
 	
 	public void setFrequency(int frequency){
 		this.frequency = frequency;
+	}
+	
+	public void setSMSEnabled(int enabled){
+		this.SMSenabled = enabled;
 	}
 	
 	public void setEnabled(int enabled){
@@ -46,6 +51,10 @@ public class Reminder {
 	
 	public int getEnabled(){
 		return enabled;
+	}
+	
+	public int getSMSEnabled(){
+		return SMSenabled;
 	}
 	
 	public String getDescription(){

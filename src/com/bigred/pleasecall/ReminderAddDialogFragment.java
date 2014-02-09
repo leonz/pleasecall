@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -113,7 +114,8 @@ public class ReminderAddDialogFragment extends DialogFragment {
 		                Spinner spinner = (Spinner) view.findViewById(R.id.frequency_spinner);
 		                frequency = Integer.parseInt(spinner.getSelectedItem().toString());
 		            	
-		                Reminder d = datasource.createReminder(contact_uri, desc.getText().toString(), frequency, 1);
+		                int sms_enabled = ((CheckBox) view.findViewById(R.id.checktext)).isChecked() ? 1 : 0;
+		                Reminder d = datasource.createReminder(contact_uri, desc.getText().toString(), frequency, sms_enabled, 1);
 		                ((MainActivity) getActivity()).updateList();
 		                
 						CharSequence text = "Reminder added successfully!";

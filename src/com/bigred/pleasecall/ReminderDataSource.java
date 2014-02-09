@@ -32,10 +32,11 @@ public class ReminderDataSource {
     dbHelper.close();
   }
 
-  public Reminder createReminder(String uri, String description, int frequency, int enabled) {
+  public Reminder createReminder(String uri, String description, int frequency, int sms_enabled, int enabled) {
     ContentValues values = new ContentValues();
     values.put(ReminderOpenHelper.COL_URI, uri);
     values.put(ReminderOpenHelper.COL_DESCRIPTION, description);
+    values.put(ReminderOpenHelper.COL_SMSENABLE, sms_enabled);
     values.put(ReminderOpenHelper.COL_FREQUENCY, frequency);
     values.put(ReminderOpenHelper.COL_ENABLE, enabled);
     long insertId = database.insert(ReminderOpenHelper.REMINDERS_TABLE_NAME, null,
@@ -56,6 +57,18 @@ public class ReminderDataSource {
         + " = " + id, null);
   }
 
+  public Reminder getReminder(long id) {
+	    
+	    Cursor cursor = database.query(ReminderOpenHelper.REMINDERS_TABLE_NAME,
+	        allColumns, ReminderOpenHelper.COL_ID + "=" + id, null, null, null, null);
+
+	    cursor.moveToFirst();
+	    Reminder r = cursorToReminder(cursor);
+	    cursor.close();
+	    return r;
+	    
+  }
+  
   public List<Reminder> getAllReminders() {
     List<Reminder> reminders = new ArrayList<Reminder>();
 
@@ -79,6 +92,7 @@ public class ReminderDataSource {
     reminder.setDescription(cursor.getString(1));
     reminder.setUri(cursor.getString(2));
     reminder.setFrequency(cursor.getInt(3));
+    reminder.setEnabled(cursor.getInt(4));
     reminder.setEnabled(cursor.getInt(4));
     
     
