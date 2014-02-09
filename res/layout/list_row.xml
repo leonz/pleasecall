@@ -41,7 +41,6 @@
     	android:layout_alignParentRight="true"
     	android:layout_below="@id/subtitle"
     	android:layout_alignBaseline="@id/title"
-    	android:layout_marginRight="20dp"
     	android:onClick="onToggleClicked"
     	android:focusable="false" />
     
