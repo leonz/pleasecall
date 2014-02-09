@@ -60,6 +60,7 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
 			PendingIntent piDismiss = PendingIntent.getBroadcast(context.getApplicationContext(), 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			dismissIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			dismissIntent.putExtra("id",  "sdsf");
+			dismissIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			
 			//button2--REMIND LATER	
 			Intent snoozeIntent = new Intent(context, RemindLaterReceiver.class);
@@ -71,7 +72,7 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
 			        new NotificationCompat.Builder(context)
 			        .setSmallIcon(R.drawable.ic_launcher)
 			        .setContentTitle("PleaseCall")
-			        .setContentText("<Get name?>")
+			        .setContentText(contactID + "")
 			        .setDefaults(Notification.DEFAULT_ALL) // requires VIBRATE permission
 			        .setStyle(new NotificationCompat.BigTextStyle()
 			                .bigText("bigText"))
@@ -92,7 +93,7 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
 			stackBuilder.addNextIntent(intent);
 			PendingIntent resultPendingIntent =
 			        stackBuilder.getPendingIntent(
-			            0,
+			            contactID,
 			            PendingIntent.FLAG_UPDATE_CURRENT
 			        );
 			builder.setContentIntent(resultPendingIntent);
