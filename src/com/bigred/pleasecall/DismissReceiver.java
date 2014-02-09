@@ -16,8 +16,7 @@ public class DismissReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
 		long id = Long.parseLong(intent.getStringExtra("id"));
-		Log.i("dimiss", "i: " + id);
-	
+		
 		ReminderDataSource dataSource = new ReminderDataSource(context);
         dataSource.open();
       

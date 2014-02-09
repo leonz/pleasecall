@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	private static final int POLL_PERIOD = 600000;
+	private static final int POLL_PERIOD = 300000;
 	
 	private ReminderDataSource dataSource;
 	private ReminderAdapter listAdapter;
