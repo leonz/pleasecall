@@ -91,7 +91,6 @@ public class ReminderAddDialogFragment extends DialogFragment {
             	
             	// Will only appear if following code doesn't work
             	String displayName = "Error retrieving contact name";
-            	String description = "";
             	
             	// Get the contact's name
             	int idx;
