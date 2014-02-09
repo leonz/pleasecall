@@ -177,8 +177,8 @@ public class MainActivity extends Activity {
     	AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
     	am.cancel(pi);
     	am.setRepeating(AlarmManager.RTC_WAKEUP,
-    			SystemClock.elapsedRealtime() + POLL_PERIOD,
-    			POLL_PERIOD, pi);
+    			SystemClock.elapsedRealtime() + 15000,
+    			15000, pi);
 
     }
 

@@ -99,8 +99,8 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
 			
 			// Build the Uri to query to table
 	        Uri contactUri = Uri.withAppendedPath(
-	                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, contactID + "");
-	
+	                ContactsContract.Contacts.CONTENT_URI, contactID + "");
+	        Log.i("uri:", contactUri.toString());
 	        // Query the table
 	        Cursor cursor = context.getContentResolver().query(
 	        		contactUri, null, null, null, null);
@@ -132,7 +132,7 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
 			        .setSmallIcon(R.drawable.ic_launcher)
 			        .setContentTitle("PleaseCall")
 			        .setAutoCancel(true)
-			        .setContentText(rowId + "")
+			        .setContentText("Time to call " + name)
 			        .setDefaults(Notification.DEFAULT_ALL) // requires VIBRATE permission
 			        .setStyle(new NotificationCompat.BigTextStyle()
 			                .bigText("It's time to contact " + name))
