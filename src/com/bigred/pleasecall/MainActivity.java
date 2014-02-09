@@ -70,6 +70,8 @@ public class MainActivity extends Activity {
             	final String names[] = {"Contact", "Edit", "Delete"};
             	final long tag = Long.parseLong(view.getTag() + "");
             	
+            	
+            	
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
                 LayoutInflater inflater = getLayoutInflater();
                 View convertView = (View) inflater.inflate(R.layout.popup_list, null);                

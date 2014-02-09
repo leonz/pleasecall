@@ -91,9 +91,9 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
 			        .setDefaults(Notification.DEFAULT_ALL) // requires VIBRATE permission
 			        .setStyle(new NotificationCompat.BigTextStyle()
 			                .bigText("bigText"))
-			        .addAction (R.drawable.ic_launcher,
+			        .addAction (R.drawable.x,
 			                "Dismiss", piDismiss)
-			        .addAction (R.drawable.ic_launcher,
+			        .addAction (R.drawable.clock,
 			                "Remind Later", piSnooze);
 		
 			
