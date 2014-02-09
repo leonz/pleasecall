@@ -113,7 +113,7 @@ public class ReminderAddDialogFragment extends DialogFragment {
 		                Spinner spinner = (Spinner) view.findViewById(R.id.frequency_spinner);
 		                frequency = Integer.parseInt(spinner.getSelectedItem().toString());
 		            	
-		                Reminder d = datasource.createReminder(contact_uri, desc.getText().toString(), 2, 1);
+		                Reminder d = datasource.createReminder(contact_uri, desc.getText().toString(), frequency, 1);
 		                ((MainActivity) getActivity()).updateList();
 		                
 						CharSequence text = "Reminder added successfully!";
