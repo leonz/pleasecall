@@ -44,7 +44,7 @@ public class Reminder {
 		return frequency;
 	}
 	
-	public int setEnabled(){
+	public int getEnabled(){
 		return enabled;
 	}
 	

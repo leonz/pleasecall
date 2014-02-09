@@ -14,8 +14,6 @@ public class ReminderOpenHelper extends SQLiteOpenHelper {
 	public static String COL_FREQUENCY = "frequency";
 	public static String COL_ENABLE = "enabled";
 	
-	
-	
 	//Database creation thing
 	
 	//disable or enable (0 or 1)

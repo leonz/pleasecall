@@ -7,10 +7,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.TwoLineListItem;
 
@@ -46,19 +49,17 @@ class ReminderAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        TwoLineListItem twoLineListItem;
-
+    	View vi = convertView;
+        
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            twoLineListItem = (TwoLineListItem) inflater.inflate(
-                    android.R.layout.simple_list_item_2, null);
-        } else {
-            twoLineListItem = (TwoLineListItem) convertView;
+            vi = inflater.inflate(R.layout.list_row, null);
         }
 
-        TextView text1 = twoLineListItem.getText1();
-        TextView text2 = twoLineListItem.getText2();
+        TextView text1 = (TextView) vi.findViewById(R.id.title);
+        TextView text2 = (TextView) vi.findViewById(R.id.subtitle);
+        CheckBox enabled = (CheckBox) vi.findViewById(R.id.checkbox);
 
         // Get the contact's name
     	int idx;
@@ -69,7 +70,23 @@ class ReminderAdapter extends BaseAdapter {
     	}
     	cursor.close();        
         text2.setText("" + reminders.get(position).getDescription());
-
-        return twoLineListItem;
+        if(reminders.get(position).getEnabled() == 1){
+        	enabled.setChecked(true);
+        }
+        vi.setTag(reminders.get(position).getUri());
+        
+        enabled.setOnClickListener(new OnClickListener() {
+        	 
+      	  @Override
+      	  public void onClick(View v) {
+                      //is chkIos checked?
+      		if (!((CheckBox) v).isChecked()) {
+      			Log.i("checkbox", "changed");
+      		}
+       
+      	  }
+      	});
+        
+        return vi;
     }
 }

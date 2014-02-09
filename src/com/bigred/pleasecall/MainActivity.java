@@ -20,8 +20,11 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -52,6 +55,14 @@ public class MainActivity extends Activity {
         ListView list=(ListView)findViewById(R.id.ExpList);
         listAdapter = new ReminderAdapter(this, listData);
         list.setAdapter(listAdapter);
+        list.setOnItemClickListener(new OnItemClickListener() {
+        	 
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+            	Log.i("click:", view.getTag() + "");
+            }
+        });
     }
     
     public void updateList(){
