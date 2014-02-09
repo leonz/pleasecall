@@ -1,5 +1,6 @@
 package com.bigred.pleasecall;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -18,13 +19,17 @@ public class RecentSMS {
 	
 	//Calendar calendar = Calendar.getInstance();
 	//calendar.setTimeInMillis(timestamp);
-	Date recentDate = new Date(timestamp);
-	String recentDateStr = recentDate.toString();
+	
+	//Date recentDate = new Date(timestamp);
+	//String recentDateStr = recentDate.toString();
 	
 	Calendar rightNow = Calendar.getInstance();
 	Date todaysDate = rightNow.getTime();
 	String todaysDateStr = todaysDate.toString();
+
+	long milliseconds = todaysDate.getTime();
 	
+	long timeDifference = milliseconds - timestamp;
 	
 	private ContentResolver getContentResolver()  {
 		// TODO Auto-generated method stub
