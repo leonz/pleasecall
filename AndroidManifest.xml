@@ -33,8 +33,8 @@
         </activity>
 
         <receiver android:name=".NotifierAlarmReceiver" android:enabled="true" android:process=":remote" />
-        <receiver android:name=".DismissReceiver" android:enabled="true" />
-        <receiver android:name=".RemindLaterReceiver" android:enabled="true" />
+        <!-- <receiver android:name=".DismissReceiver" android:enabled="true" />
+        <receiver android:name=".RemindLaterReceiver" android:enabled="true" /> -->
   
         <service
             android:name="com.bigred.pleasecall.NotifierAlarmReceiver"
