@@ -46,33 +46,48 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
         		Log.i("lastmessagedate: ",  dsms.toString());
         	}
         	
-        	Log.i("notify:", "" + Integer.parseInt(Uri.parse(r.getUri() + "").getLastPathSegment()));
-        	notification(context, Integer.parseInt(Uri.parse(r.getUri() + "").getLastPathSegment()));
+        	Date current = new Date();
+        	Date notificationMax = new Date(System.currentTimeMillis() + (r.getFrequency() * 86400 * 1000));
+        	Date dismissUntil = new Date(r.getDismissUntil());
+        	Date remindAfter = new Date(r.getRemindAfter());
+        	
+//        	if(r.getSMSEnabled() == 1){
+//        		if(dsms.compareTo(notificationMax)) {
+//        			
+//        		}
+//        	}
+        	
+        	
+            
+//        	Log.i("notify:", "" + d);
+        	notification(context, r.getId(), Integer.parseInt(Uri.parse(r.getUri() + "").getLastPathSegment()));
 
         }
         
     }
 	
-	public void notification(Context context, int contactID) {
+	public void notification(Context context, long rowId, int contactID) {
 			
 			//button1--DISMISS
-			Intent dismissIntent = new Intent(context, DismissReceiver.class);
-			PendingIntent piDismiss = PendingIntent.getBroadcast(context.getApplicationContext(), 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			Intent dismissIntent = new Intent(context.getApplicationContext(), DismissReceiver.class);
 			dismissIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			dismissIntent.putExtra("id",  "sdsf");
+			dismissIntent.putExtra("id",  rowId + "");
+			Log.i("extras: ", dismissIntent.getExtras().toString());
+			PendingIntent piDismiss = PendingIntent.getBroadcast(context.getApplicationContext(), 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			dismissIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			
 			//button2--REMIND LATER	
-			Intent snoozeIntent = new Intent(context, RemindLaterReceiver.class);
-			PendingIntent piSnooze = PendingIntent.getService(context.getApplicationContext(), 0, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			Intent snoozeIntent = new Intent(context.getApplicationContext(), RemindLaterReceiver.class);			
 			snoozeIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			snoozeIntent.putExtra("id", contactID + "tasda");
+			snoozeIntent.putExtra("id", rowId + "");
+			PendingIntent piSnooze = PendingIntent.getBroadcast(context.getApplicationContext(), 0, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			
 			NotificationCompat.Builder builder =
 			        new NotificationCompat.Builder(context)
 			        .setSmallIcon(R.drawable.ic_launcher)
 			        .setContentTitle("PleaseCall")
-			        .setContentText(contactID + "")
+			        .setAutoCancel(true)
+			        .setContentText(rowId + "")
 			        .setDefaults(Notification.DEFAULT_ALL) // requires VIBRATE permission
 			        .setStyle(new NotificationCompat.BigTextStyle()
 			                .bigText("bigText"))
@@ -80,6 +95,7 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
 			                "Dismiss", piDismiss)
 			        .addAction (R.drawable.ic_launcher,
 			                "Remind Later", piSnooze);
+		
 			
 			 Intent intent = new Intent(Intent.ACTION_VIEW);
 			 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -93,14 +109,14 @@ public class NotifierAlarmReceiver extends BroadcastReceiver {
 			stackBuilder.addNextIntent(intent);
 			PendingIntent resultPendingIntent =
 			        stackBuilder.getPendingIntent(
-			            contactID,
+			            (int)rowId,
 			            PendingIntent.FLAG_UPDATE_CURRENT
 			        );
 			builder.setContentIntent(resultPendingIntent);
 			
 			NotificationManager mNotificationManager =
 				    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-			mNotificationManager.notify(contactID, builder.build());
+			mNotificationManager.notify((int)rowId, builder.build());
 		
 	}
       
