@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
-    android:weightSum="2" >
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:padding="10dp"
+ 	   android:weightSum="2">
 
     <TextView
         android:id="@+id/choose"
@@ -14,7 +13,7 @@
         android:layout_toLeftOf="@+id/pick_contact"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="15dp"
-        android:text="Choose a contact"
+        android:text="Choose a contact:"
         android:textAppearance="?android:attr/textAppearanceMedium"
         />
 
@@ -27,10 +26,42 @@
         android:text="Browse" />
 
     <TextView
-        android:id="@+id/trackwhat"
+        android:id="@+id/contactname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/pick_contact"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+ <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contactname"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:text="Description: (optional)"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="gone" />
+ 
+	<EditText
+		android:id="@+id/contactdescription"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignRight="@+id/howlong"
+		android:layout_below="@id/description"
+		android:text=""
+		android:visibility="gone" />
+   
+   <TextView
+        android:id="@+id/trackwhat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contactdescription"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="20dp"
         android:text="What you would you like to track?"
@@ -42,6 +73,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/trackwhat"
         android:layout_alignParentLeft="true"
+        android:checked="true"
+        android:enabled="false"
         android:text="Phone Calls" />
 
     <CheckBox
@@ -63,31 +96,20 @@
         android:text="How long before you get a reminder?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-     <Spinner
+	<Spinner
         android:id="@+id/frequency_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/howlong"
         android:layout_alignParentLeft="true" />
 
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/submit"
-        android:layout_weight="1"
-        android:text="Cancel" />
-
-    <Button
-        android:id="@id/submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/frequency_spinner"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@id/checktext"
-        android:layout_weight="1"
-        android:text="Submit" />
-    
+ 	<TextView
+ 	    android:id="@+id/days"
+ 	    android:layout_width="wrap_content"
+ 	    android:layout_height="wrap_content"
+ 	    android:layout_alignRight="@+id/checkphone"
+ 	    android:layout_alignTop="@+id/frequency_spinner"
+ 	    android:text="Days"
+ 	    android:textAppearance="?android:attr/textAppearanceMedium" />
+ 
 </RelativeLayout>
