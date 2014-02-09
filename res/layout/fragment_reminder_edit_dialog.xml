@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:padding="10dp"
+ 	    android:weightSum="2">
+
+     <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
+        android:text="Description: (optional)"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+ 
+	<EditText
+		android:id="@+id/contactdescription"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignRight="@+id/howlong"
+		android:layout_below="@id/description"
+		android:text="" />
+   
+   <TextView
+        android:id="@+id/trackwhat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contactdescription"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:text="What you would you like to track?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+     <CheckBox
+        android:id="@+id/checkphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/trackwhat"
+        android:layout_alignParentLeft="true"
+        android:checked="true"
+        android:enabled="false"
+        android:text="Phone Calls" />
+
+    <CheckBox
+        android:id="@+id/checktext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkphone"
+        android:layout_alignParentLeft="true"
+        android:text="Text Messages" />  
+        
+    
+    <TextView
+        android:id="@+id/howlong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/checktext"
+        android:layout_alignParentLeft="true"
+        android:text="How long before you get a reminder?"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	<Spinner
+        android:id="@+id/frequency_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/howlong"
+        android:layout_alignParentLeft="true" />
+
+ 	<TextView
+ 	    android:id="@+id/days"
+ 	    android:layout_width="wrap_content"
+ 	    android:layout_height="wrap_content"
+ 	    android:layout_alignRight="@+id/checkphone"
+ 	    android:layout_alignTop="@+id/frequency_spinner"
+ 	    android:text="Days"
+ 	    android:textAppearance="?android:attr/textAppearanceMedium" />
+ 
+  	
+ 	<CheckBox
+        android:id="@+id/checkdisable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frequency_spinner"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:text="Disable this reminder completely?" /> 
+        
+</RelativeLayout>
