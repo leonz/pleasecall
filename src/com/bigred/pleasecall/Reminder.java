@@ -2,7 +2,7 @@ package com.bigred.pleasecall;
 
 public class Reminder {
 	
-	private long id;
+	private Long id;
 	private String uri;
 	private int frequency;
 	private int enabled;
@@ -37,7 +37,7 @@ public class Reminder {
 		this.description = description;
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	

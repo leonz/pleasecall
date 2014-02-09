@@ -18,6 +18,7 @@ public class ReminderDataSource {
 		  ReminderOpenHelper.COL_DESCRIPTION,
 		  ReminderOpenHelper.COL_URI,		  
 		  ReminderOpenHelper.COL_FREQUENCY,
+		  ReminderOpenHelper.COL_SMSENABLE,
 		  ReminderOpenHelper.COL_ENABLE};
 
   public ReminderDataSource(Context context) {
@@ -56,6 +57,17 @@ public class ReminderDataSource {
     database.delete(ReminderOpenHelper.REMINDERS_TABLE_NAME, ReminderOpenHelper.COL_ID
         + " = " + id, null);
   }
+  
+  public void editReminder(Long id, String uri, String description, int frequency, int sms_enabled, int enabled) {
+	  	ContentValues values = new ContentValues();
+		values.put(ReminderOpenHelper.COL_URI, uri);
+		values.put(ReminderOpenHelper.COL_DESCRIPTION, description);
+		values.put(ReminderOpenHelper.COL_SMSENABLE, sms_enabled);
+		values.put(ReminderOpenHelper.COL_FREQUENCY, frequency);
+		values.put(ReminderOpenHelper.COL_ENABLE, enabled);
+	  database.update(ReminderOpenHelper.REMINDERS_TABLE_NAME,
+		        values, ReminderOpenHelper.COL_ID + "=" + id, null);
+  }
 
   public Reminder getReminder(long id) {
 	    
@@ -92,8 +104,8 @@ public class ReminderDataSource {
     reminder.setDescription(cursor.getString(1));
     reminder.setUri(cursor.getString(2));
     reminder.setFrequency(cursor.getInt(3));
-    reminder.setEnabled(cursor.getInt(4));
-    reminder.setEnabled(cursor.getInt(4));
+    reminder.setSMSEnabled(cursor.getInt(4));
+    reminder.setEnabled(cursor.getInt(5));
     
     
     return reminder;
