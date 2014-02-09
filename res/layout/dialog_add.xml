@@ -1,68 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:weightSum="2" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/choose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Who"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_toLeftOf="@+id/pick_contact"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
+        android:text="Choose a contact"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
 
     <Button
-        android:id="@+id/pick_contact"
+        android:id="@id/pick_contact"
         android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
         android:text="Browse" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/trackwhat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pick_contact"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/pick_contact"
+        android:layout_alignParentLeft="true"
         android:layout_marginTop="20dp"
-        android:text="what to track"
+        android:text="What you would you like to track?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <CheckBox
-        android:id="@+id/CheckBox01"
+     <CheckBox
+        android:id="@+id/checkphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:text="SMS" />
+        android:layout_below="@id/trackwhat"
+        android:layout_alignParentLeft="true"
+        android:text="Phone Calls" />
 
     <CheckBox
-        android:id="@+id/checkBox1"
+        android:id="@+id/checktext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/pick_contact"
-        android:layout_below="@+id/CheckBox01"
-        android:text="Phone" />
-
+        android:layout_below="@id/checkphone"
+        android:layout_alignParentLeft="true"
+        android:text="Text Messages" />  
+        
+    
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/howlong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/checkBox1"
-        android:layout_below="@+id/checkBox1"
-        android:text="frequency"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/checktext"
+        android:layout_alignParentLeft="true"
+        android:text="How long before you get a reminder?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/editText1"
+     <Spinner
+        android:id="@+id/frequency_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:ems="10"
-        android:inputType="number"
-        android:text="1" />
+        android:layout_below="@id/howlong"
+        android:layout_alignParentLeft="true" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/submit"
+        android:layout_weight="1"
+        android:text="Cancel" />
+
+    <Button
+        android:id="@id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/frequency_spinner"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@id/checktext"
+        android:layout_weight="1"
+        android:text="Submit" />
+    
+</RelativeLayout>
