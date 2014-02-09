@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class ContactsOpenHelper extends SQLiteOpenHelper {
+public class ReminderOpenHelper extends SQLiteOpenHelper {
 	
 	private static final int DATABASE_VERSION = 1;
 	public static final String REMINDERS_TABLE_NAME = "Reminders";
@@ -33,7 +33,7 @@ public class ContactsOpenHelper extends SQLiteOpenHelper {
 			COL_URI + " text not null " +
 			");";
 	
-	ContactsOpenHelper(Context context) {
+	ReminderOpenHelper(Context context) {
 		super(context, REMINDERS_TABLE_NAME, null, DATABASE_VERSION);
 	}
 	

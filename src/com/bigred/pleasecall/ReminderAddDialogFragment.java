@@ -55,14 +55,7 @@ public class ReminderAddDialogFragment extends DialogFragment {
 			.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int id) {
-					// We are overriding this: see below
-
-					
-					if (!importSuccess) {
-						CharSequence text = "Please import a contact!";
-						Toast.makeText(view.getContext(), text, Toast.LENGTH_LONG).show();
-					}
-					
+					// We are overriding this: see below		
 				}
 			})
 			.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -99,6 +92,15 @@ public class ReminderAddDialogFragment extends DialogFragment {
 						CharSequence text = "Please import a contact!";
 						Toast.makeText(view.getContext(), text, Toast.LENGTH_SHORT).show();
 					} else {
+						// Save to database
+		            	ReminderDataSource datasource = new ReminderDataSource(getActivity());
+		                datasource.open();
+		                
+		                EditText desc = (EditText) view.findViewById(R.id.contactdescription);
+		            	
+		                Reminder d = datasource.createReminder(contact_uri, desc.getText().toString(), 2, 1);
+		                ((MainActivity) getActivity()).updateList();
+		                
 						CharSequence text = "Reminder added successfully!";
 						Toast.makeText(view.getContext(), text, Toast.LENGTH_SHORT).show();
 						dismiss();
@@ -147,7 +149,7 @@ public class ReminderAddDialogFragment extends DialogFragment {
             	desc.setVisibility(View.VISIBLE);      
             	
             	importSuccess = true;
-            	
+                
                 break;
             }
 

@@ -1,5 +1,11 @@
 package com.bigred.pleasecall;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,10 +22,18 @@ import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 public class MainActivity extends Activity {
 
 	private static final int POLL_PERIOD = 600000;
+	
+	private ReminderDataSource dataSource;
+	private ReminderAdapter listAdapter;
+	private List<Reminder> listData;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +43,26 @@ public class MainActivity extends Activity {
         // SMS listener
         ContentResolver contentResolver = getContentResolver();
         contentResolver.registerContentObserver(Uri.parse("content://sms"), true, new MessageObserver(new Handler(), getApplicationContext()));
-    
         
+        dataSource = new ReminderDataSource(this);
+        dataSource.open();
+      
+        listData = dataSource.getAllReminders();
+        
+        ListView list=(ListView)findViewById(R.id.ExpList);
+        listAdapter = new ReminderAdapter(this, listData);
+        list.setAdapter(listAdapter);
+    }
+    
+    public void updateList(){
+    	listAdapter.setListData(dataSource.getAllReminders());
+    	
+    	runOnUiThread(new Runnable() {
+            @Override
+            public void run() {            	
+            	listAdapter.notifyDataSetChanged();
+            }
+        });
     }
     
     public void onResume(){
@@ -64,7 +96,10 @@ public class MainActivity extends Activity {
         	case R.id.action_add:
         		Log.i("MSG: ", "Cl");
         		showDialog();
-        		break;        		
+        		break;
+    		default:
+    			updateList();
+    			break;
         }
 		return false;
     }
